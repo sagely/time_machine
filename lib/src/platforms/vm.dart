@@ -94,7 +94,13 @@ class TimeMachine  {
 
     // Default Culture
     var cultureId = io.Platform.localeName?.split('.')?.first?.replaceAll('_', '-') ?? 'en-US';
-    var culture = await Cultures.getCulture(cultureId);
+    var culture;
+    try {
+      culture = await Cultures.getCulture(cultureId);
+    }
+    catch (e) {
+      culture = await Cultures.getCulture('en-US');
+    }
     ICultures.currentCulture = culture;
     // todo: remove Culture.currentCulture
   }
